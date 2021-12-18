@@ -12,9 +12,15 @@
             box-sizing: border-box;
             cursor: crosshair;
         }
+
+        :root {
+            --app-height: 100%;
+        }
+        
         .frame {
             position: relative;
             height: 100vh;
+            height: var(--app-height);
             max-height: 100vh;
             background: linear-gradient(180deg,  rgba(8,4,80,1)0%, rgba(9,9,121,1) 28%, rgb(51, 65, 255) 53%, rgba(2,0,36,1) 100%);
             overflow: hidden;
@@ -123,6 +129,15 @@
     </div>
 
     <script>
+        const appHeight = () => {
+            const doc = document.documentElement;
+            doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+        }
+        
+        appHeight();
+
+        window.addEventListener('resize', appHeight);
+
         const randomInteger = (min, max) => {
             let rand = min + Math.random() * (max + 1 - min);
             return Math.floor(rand);
