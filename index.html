@@ -12,13 +12,13 @@
             box-sizing: border-box;
             cursor: crosshair;
         }
-        .body {
+        .frame {
             position: relative;
             min-height: 100vh;
             background: linear-gradient(180deg,  rgba(8,4,80,1)0%, rgba(9,9,121,1) 28%, rgb(51, 65, 255) 53%, rgba(2,0,36,1) 100%);
             overflow: hidden;
         }
-        .body::before {
+        .frame::before {
             content: '';
             position: absolute;
             right: 0;
@@ -32,7 +32,7 @@
             background-position: left bottom;
             opacity: 0.5;
         }
-        .body::after {
+        .frame::after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -61,7 +61,7 @@
             width: 100px;
             height: 100px;
             background-repeat: no-repeat;
-            animation: falling-snow 5s linear;
+            animation: falling-snow 10s linear;
             z-index: 10;
         }
 
@@ -83,17 +83,17 @@
                 transform: translate(-50%, -50%) rotate(0deg);
             }
             25% {
-                transform: translate(5vw, 25vh) rotate(90deg);
+                transform: translate(100%, 25vh) rotate(90deg);
             }
             50% {
-                transform: translate(-5vw, 50vh) rotate(180deg);
+                transform: translate(-100%, 50vh) rotate(180deg);
             }
             75% {
-                transform: translate(5vw, 75vh) rotate(270deg);
+                transform: translate(100%, 75vh) rotate(270deg);
             }
             100% {
                 opacity: 1;
-                transform: translate(-5vw, 110vh) rotate(360deg);
+                transform: translate(-100%, 110vh) rotate(360deg);
             }
         }
 
@@ -116,28 +116,32 @@
         }
     </style>
 </head>
-<body class="body">
-    <p class="help-info">Клацай по екрану щоб ішов сніг)</p>
+<body>
+    <div class="frame">
+        <p class="help-info">Клацай по екрану щоб ішов сніг)</p>
+    </div>
 
     <script>
         const randomInteger = (min, max) => {
             let rand = min + Math.random() * (max + 1 - min);
             return Math.floor(rand);
         }
-        document.body.addEventListener("click", (e) => {
+
+        const frame = document.querySelector(".frame");
+
+        frame.addEventListener("click", (e) => {
             let snowflakesBg = randomInteger(1,8);
             let snowflakes = document.createElement("span");
             snowflakes.classList.add("snowflakes");
             snowflakes.style.top =  e.pageY + "px";
             snowflakes.style.left = e.pageX + "px";
             snowflakes.style.backgroundImage = `url("img/snowflakes${snowflakesBg}.svg`;
-            console.log(e.pageX, e.pageY);
 
-            document.body.appendChild(snowflakes);
+            frame.appendChild(snowflakes);
 
             setTimeout(() => {
                 snowflakes.remove();
-            }, 4800)
+            }, 9800)
         });
     </script>
 </body>
