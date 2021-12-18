@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snowflakes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: crosshair;
+        }
+        .body {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(180deg,  rgba(8,4,80,1)0%, rgba(9,9,121,1) 28%, rgb(51, 65, 255) 53%, rgba(2,0,36,1) 100%);
+            overflow: hidden;
+        }
+        .body::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            display: block;
+            height: 100vh;
+            background-image: url("img/pngwing.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: left bottom;
+            opacity: 0.5;
+        }
+        .body::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: block;
+            width: 25%;
+            height: 25%;
+            background-image: url("img/snowman.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            animation: move-snowman 10s linear infinite;
+        }
+        .help-info {
+            padding-top: 20px;
+            font-family: sans-serif;
+            font-size: 2rem;
+            text-align: center;
+            color: whitesmoke;
+            user-select: none;
+            animation: help-info-anim 2s 3;
+            opacity: 0;
+        }
+        .snowflakes {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-repeat: no-repeat;
+            animation: falling-snow 5s linear;
+            z-index: 10;
+        }
+
+        @keyframes help-info-anim {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes falling-snow {
+            0% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            25% {
+                transform: translate(5vw, 25vh) rotate(90deg);
+            }
+            50% {
+                transform: translate(-5vw, 50vh) rotate(180deg);
+            }
+            75% {
+                transform: translate(5vw, 75vh) rotate(270deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-5vw, 110vh) rotate(360deg);
+            }
+        }
+
+        @keyframes move-snowman {
+            0% {
+                left: 0%;
+                transform: rotateY(0deg);
+            }
+            49.99% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                left: 75%;
+                transform: rotateY(180deg);
+            }
+            100% {
+                left: 0;
+                transform: rotateY(180deg);
+            }
+        }
+    </style>
+</head>
+<body class="body">
+    <p class="help-info">Клацай по екрану щоб ішов сніг)</p>
+
+    <script>
+        const randomInteger = (min, max) => {
+            let rand = min + Math.random() * (max + 1 - min);
+            return Math.floor(rand);
+        }
+        document.body.addEventListener("click", (e) => {
+            let snowflakesBg = randomInteger(1,8);
+            let snowflakes = document.createElement("span");
+            snowflakes.classList.add("snowflakes");
+            snowflakes.style.top =  e.pageY + "px";
+            snowflakes.style.left = e.pageX + "px";
+            snowflakes.style.backgroundImage = `url("img/snowflakes${snowflakesBg}.svg`;
+            console.log(e.pageX, e.pageY);
+
+            document.body.appendChild(snowflakes);
+
+            setTimeout(() => {
+                snowflakes.remove();
+            }, 4800)
+        });
+    </script>
+</body>
+</html>
