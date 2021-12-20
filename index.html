@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ua">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <title>Snowflakes</title>
     <style>
         * {
@@ -16,15 +17,18 @@
         :root {
             --app-height: 100%;
         }
-        
+
         .frame {
             position: relative;
             height: 100vh;
             height: var(--app-height);
             max-height: 100vh;
-            background: linear-gradient(180deg,  rgba(8,4,80,1)0%, rgba(9,9,121,1) 28%, rgb(51, 65, 255) 53%, rgba(2,0,36,1) 100%);
+            background: url("img/clouds.png"), linear-gradient(180deg,  rgba(8,4,80,1)0%, rgba(9,9,121,1) 28%, rgb(51, 65, 255) 53%, rgba(2,0,36,1) 100%);
+            background-repeat: no-repeat;
+            background-size: cover;
             overflow: hidden;
         }
+
         .frame::before {
             content: '';
             position: absolute;
@@ -39,6 +43,7 @@
             background-position: left bottom;
             opacity: 0.5;
         }
+
         .frame::after {
             content: '';
             position: absolute;
@@ -53,6 +58,7 @@
             background-position: center bottom;
             animation: move-snowman 10s linear infinite;
         }
+
         .help-info {
             padding-top: 20px;
             font-family: sans-serif;
@@ -63,6 +69,7 @@
             animation: help-info-anim 2s 3;
             opacity: 0;
         }
+
         .snowflakes {
             position: absolute;
             width: 100px;
